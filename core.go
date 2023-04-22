@@ -7,7 +7,20 @@ import "C"
 import "unsafe"
 
 type Handle struct {
-	handle unsafe.Pointer
+	handle             unsafe.Pointer
+	TextureSearchPaths []string // the texture search paths
+	BeatSensitivity    float32  // the beat sensitivity
+	HardCutDuration    float64  // the minimum display time before a hard cut can happen
+	HardCutEnabled     bool     // enables or disables hard cuts
+	HardCutSensitivity float32  // the hard cut volume sensitivity
+	SoftCutDuration    float64  // the time in seconds for a soft transition between two presets
+	PresetDuration     float64  // the preset display duration before switching to the next using a soft cut
+	MeshSize           []uint32 // the per-pixel equation mesh size in units
+	FPS                int32    // the current/average frames per second
+	AspectCorrection   bool     // enabled or disables aspect ratio correction in presets that support it
+	EasterEgg          float32  // the "easter egg" value
+	PresetLocked       bool     // locks or unlocks the current preset
+	WindowSize         []uint32 // the current viewport size in pixels
 }
 
 /*
