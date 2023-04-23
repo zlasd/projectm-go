@@ -5,6 +5,13 @@ const (
 	PROJECTM_STEREO = 2
 )
 
+const (
+	PROJECTM_CHANNEL_L = 0
+	PROJECTM_CHANNEL_0 = 0
+	PROJECTM_CHANNEL_R = 1
+	PROJECTM_CHANNEL_1 = 1
+)
+
 // PCMGetMaxChannels returns the maximum number of audio samples that can be stored.
 func PCMGetMaxChannels() uint32 {
 	return 0

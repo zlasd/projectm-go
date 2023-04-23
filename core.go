@@ -50,6 +50,9 @@ func (h *Handle) LoadPresetData(data []byte, smoothTransition bool) {}
 // ResetTextures reloads all textures.
 func (h *Handle) ResetTextures() {}
 
+// RenderFrame renders a single frame.
+func (h *Handle) RenderFrame() {}
+
 // GetVersionComponents returns the runtime library version components as individual integers.
 func (h *Handle) GetVersionComponents() (int, int, int) {
 	return 4, 0, 0
