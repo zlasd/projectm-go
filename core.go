@@ -1,6 +1,8 @@
 package projectm
 
 /*
+#cgo CFLAGS: -I${SRCDIR}/include
+#cgo LDFLAGS: -lprojectM
 #include <projectM-4/projectM.h>
 */
 import "C"

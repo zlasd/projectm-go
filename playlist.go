@@ -1,6 +1,9 @@
 package projectm
 
 /*
+#cgo CFLAGS: -I${SRCDIR}/include
+#cgo LDFLAGS: -lprojectM_playlist
+#include <stdbool.h>
 #include <projectM-4/playlist.h>
 */
 import "C"
