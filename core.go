@@ -2,8 +2,9 @@ package projectm
 
 /*
 #cgo CFLAGS: -I${SRCDIR}/include
-#cgo LDFLAGS: -lprojectM
+#cgo LDFLAGS: -lprojectM-4
 #include <projectM-4/projectM.h>
+#include <stdlib.h>
 */
 import "C"
 import "unsafe"
@@ -23,6 +24,9 @@ type Handle struct {
 	EasterEgg          float32  // the "easter egg" value
 	PresetLocked       bool     // locks or unlocks the current preset
 	WindowSize         []uint32 // the current viewport size in pixels
+
+	// temp C pointer
+	tempPointer []unsafe.Pointer
 }
 
 /*
@@ -36,21 +40,35 @@ Create
 	nil if the instance could not be created successfully.
 */
 func Create() *Handle {
-	// TODO call projectm_create
-	return &Handle{}
+	return &Handle{handle: unsafe.Pointer(C.projectm_create())}
 }
 
 // Destroy destroys the given instance and frees the resources.
-func (h *Handle) Destroy() {}
+func (h *Handle) Destroy() {
+	C.projectm_destroy(C.projectm_handle(h.handle))
+	for _, p := range h.tempPointer {
+		C.free(p)
+	}
+}
 
 // LoadPresetFile loads a preset from the given filename/URL.
-func (h *Handle) LoadPresetFile(fileName string, smoothTransition bool) {}
+func (h *Handle) LoadPresetFile(fileName string, smoothTransition bool) {
+	cFileName := C.CString(fileName)
+	C.projectm_load_preset_file(C.projectm_handle(h.handle), cFileName, C.bool(smoothTransition))
+	h.tempPointer = append(h.tempPointer, unsafe.Pointer(cFileName))
+}
 
 // LoadPresetData loads a preset from binary.
-func (h *Handle) LoadPresetData(data []byte, smoothTransition bool) {}
+func (h *Handle) LoadPresetData(data []byte, smoothTransition bool) {
+	cData := C.CBytes(data)
+	C.projectm_load_preset_data(C.projectm_handle(h.handle), (*C.char)(cData), C.bool(smoothTransition))
+	h.tempPointer = append(h.tempPointer, cData)
+}
 
 // ResetTextures reloads all textures.
-func (h *Handle) ResetTextures() {}
+func (h *Handle) ResetTextures() {
+	C.projectm_reset_textures(C.projectm_handle(h.handle))
+}
 
 // RenderFrame renders a single frame.
 func (h *Handle) RenderFrame() {}

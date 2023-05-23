@@ -2,7 +2,7 @@ package projectm
 
 /*
 #cgo CFLAGS: -I${SRCDIR}/include
-#cgo LDFLAGS: -lprojectM_playlist
+#cgo LDFLAGS: -lprojectM-4-playlist
 #include <stdbool.h>
 #include <projectM-4/playlist.h>
 */
@@ -28,12 +28,13 @@ type Playlist struct {
 
 // CreatePlaylist creates a playlist manager for the given projectM instance
 func (h *Handle) CreatePlaylist() *Playlist {
-	// TODO call projectm_playlist_create
-	return &Playlist{}
+	return &Playlist{handle: unsafe.Pointer(C.projectm_playlist_create(C.projectm_handle(h.handle)))}
 }
 
 // Destroy destroys a previously created playlist manager.
-func (p *Playlist) Destroy() {}
+func (p *Playlist) Destroy() {
+	C.projectm_playlist_destroy(C.projectm_playlist_handle(p.handle))
+}
 
 // Connect connects the playlist manager to a projectM instance.
 func (p *Playlist) Connect(handle *Handle) {}
