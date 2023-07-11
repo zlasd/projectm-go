@@ -1,0 +1,13 @@
+package projectm
+
+const (
+	PROJECTM_MONO   = 1
+	PROJECTM_STEREO = 2
+)
+
+const (
+	PROJECTM_CHANNEL_L = 0
+	PROJECTM_CHANNEL_0 = 0
+	PROJECTM_CHANNEL_R = 1
+	PROJECTM_CHANNEL_1 = 1
+)
