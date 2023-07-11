@@ -36,7 +36,7 @@ Create
 	If this function returns nil, in most cases the OpenGL context is not initialized, not made
 	current or insufficient to render projectM visuals.
 
-	@return A projectM handle for the newly created instance.
+	@return A projectM playListHandle for the newly created instance.
 	nil if the instance could not be created successfully.
 */
 func Create() *Handle {
