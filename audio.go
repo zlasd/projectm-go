@@ -26,15 +26,24 @@ func PCMGetMaxChannels() uint32 {
 
 // PCMAddFloat adds 32-bit floating-point audio samples.
 func (h *Handle) PCMAddFloat(samples []float32, channels int) {
-	C.projectm_pcm_add_float(C.projectm_handle(h.handle), samples, len(samples), C.projectm_channels(channels))
+	if len(samples) == 0 {
+		return
+	}
+	C.projectm_pcm_add_float(C.projectm_handle(h.handle), (*C.float)(&samples[0]), C.uint(len(samples)), C.projectm_channels(channels))
 }
 
 // PCMAddInt16 adds 16-bit integer audio samples.
 func (h *Handle) PCMAddInt16(samples []int16, channels int) {
-	C.projectm_pcm_add_int16(C.projectm_handle(h.handle), samples, len(samples), C.projectm_channels(channels))
+	if len(samples) == 0 {
+		return
+	}
+	C.projectm_pcm_add_int16(C.projectm_handle(h.handle), (*C.int16_t)(&samples[0]), C.uint(len(samples)), C.projectm_channels(channels))
 }
 
 // PCMAddUint8 adds 8-bit unsigned integer audio samples.
 func (h *Handle) PCMAddUint8(samples []uint8, channels int) {
-	C.projectm_pcm_add_uint8(C.projectm_handle(h.handle), samples, len(samples), C.projectm_channels(channels))
+	if len(samples) == 0 {
+		return
+	}
+	C.projectm_pcm_add_uint8(C.projectm_handle(h.handle), (*C.uint8_t)(&samples[0]), C.uint(len(samples)), C.projectm_channels(channels))
 }
