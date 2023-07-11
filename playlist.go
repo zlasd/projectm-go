@@ -9,16 +9,6 @@ package projectm
 import "C"
 import "unsafe"
 
-const (
-	SORT_PREDICATE_FULL_PATH = iota
-	SORT_PREDICATE_FILENAME_ONLY
-)
-
-const (
-	SORT_ORDER_ASCENDING = iota
-	SORT_ORDER_DESCENDING
-)
-
 type Playlist struct {
 	playListHandle unsafe.Pointer
 	handle         unsafe.Pointer
