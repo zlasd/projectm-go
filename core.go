@@ -75,7 +75,9 @@ func (h *Handle) ResetTextures() {
 }
 
 // RenderFrame renders a single frame.
-func (h *Handle) RenderFrame() {}
+func (h *Handle) RenderFrame() {
+	C.projectm_opengl_render_frame(C.projectm_handle(h.handle))
+}
 
 // GetVersionComponents returns the runtime library version components as individual integers.
 func (h *Handle) GetVersionComponents() (int, int, int) {
