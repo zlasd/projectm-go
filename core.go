@@ -40,7 +40,11 @@ Create
 	nil if the instance could not be created successfully.
 */
 func Create() *Handle {
-	return &Handle{handle: unsafe.Pointer(C.projectm_create())}
+	handle := unsafe.Pointer(C.projectm_create())
+	if handle == nil {
+		panic("init failed, check whether the OpenGL context is not initialized")
+	}
+	return &Handle{handle: handle}
 }
 
 // Destroy destroys the given instance and frees the resources.

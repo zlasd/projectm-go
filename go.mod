@@ -1,3 +1,3 @@
-module github.com/zlasd/projectm-go
+module github.com/zlasd/projectm
 
 go 1.19
